@@ -10,3 +10,6 @@ April 10, 2026
 - I finished my flowchart and now, I'm going to start working on my main code structure.
 - I'm working on my classes (Product and Items in the cart) first before constructing the main code structure^^
 
+AI Usage in This Project:
+- I used the AI to help me recall how to use class and methods and how can I utilize it in this activity to make my code more organized.
+
