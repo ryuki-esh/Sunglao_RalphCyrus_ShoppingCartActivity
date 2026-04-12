@@ -4,4 +4,4 @@ using System.Text;
 
 namespace Shopping_Cart_Activity_Sunglao
 {
-    internal class Product
+    internal class Program
