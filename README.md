@@ -12,4 +12,5 @@ April 10, 2026
 
 AI Usage in This Project:
 - I used the AI to help me recall how to use class and methods and how can I utilize it in this activity to make my code more organized.
+- I used the AI to help me link my .cs files to my repository so that my progress and commits can be tracked real time in GitHUB.
 
