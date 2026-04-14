@@ -60,7 +60,7 @@ namespace Shopping_Cart_Activity_Sunglao
                 }
 
                 Console.WriteLine("\nThank you for shopping at Ralph's Grocery Store!");
-            }
+            
         }
 
     }
