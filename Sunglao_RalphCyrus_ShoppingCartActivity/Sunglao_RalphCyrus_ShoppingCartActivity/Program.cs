@@ -15,6 +15,11 @@ namespace Shopping_Cart_Activity_Sunglao
                 new Product(3, "Meat (1 kg)", 250.00, 200),
                 new Product(4, "Bread (1 Loaf)", 75.00, 500),
                 new Product(5, "Turon", 25.00, 100),
+                new Product(6, "Siopao", 30.00, 100),
+                new Product(7, "SM Bonus Water (1L)", 30.00, 500),
+                new Product(8, "Fish (1 kg)", 150.00, 200),
+                new Product(9, "Mr. Chips", 30.00, 500),
+                new Product(10, "Cheetos", 90.00, 100),
             };
 
             ItemCart[] cart = new ItemCart[5];
@@ -39,7 +44,7 @@ namespace Shopping_Cart_Activity_Sunglao
 
                 Console.WriteLine("===========================================");
 
-                Console.Write("Enter Product Number: ");
+                Console.Write("Enter Product ID: ");
                 string inputProduct = Console.ReadLine();
 
                 if (!int.TryParse(inputProduct, out int productChoice) ||
@@ -88,34 +93,41 @@ namespace Shopping_Cart_Activity_Sunglao
                     continueShopping = false;
             }
 
-      
-            Console.WriteLine("\n===== RECEIPT =====");
+
+            Console.WriteLine("\n===========================================");
+            Console.WriteLine("                 RECEIPT                  ");
+            Console.WriteLine("===========================================");
+            Console.WriteLine($"{"Item",-15} {"Qty",-7} {"Price",-10} {"Subtotal",-10}");
+            Console.WriteLine("-------------------------------------------");
+
             double grandTotal = 0;
 
             for (int i = 0; i < cartCount; i++)
             {
-                Console.WriteLine($"{cart[i].Product.Name} x{cart[i].Quantity} = ₱{cart[i].Subtotal}");
+                Console.WriteLine(
+                    $"{cart[i].Product.Name,-15} " +
+                    $"{cart[i].Quantity,-7} " +
+                    $"PHP {cart[i].Product.Price,-9} " +
+                    $"PHP {cart[i].Subtotal,-10}"
+                );
+
                 grandTotal += cart[i].Subtotal;
             }
 
-            Console.WriteLine($"Grand Total: ₱{grandTotal}");
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine($"{"Grand Total:",-30} PHP {grandTotal}");
 
             double discount = 0;
             if (grandTotal >= 5000)
             {
                 discount = grandTotal * 0.10;
-                Console.WriteLine($"Discount (10%): ₱{discount}");
             }
+
+            Console.WriteLine($"{"Discount (10%):",-30} PHP {discount}");
 
             double finalTotal = grandTotal - discount;
-            Console.WriteLine($"Final Total: ₱{finalTotal}");
-
-
-            Console.WriteLine("\n===== UPDATED STOCK =====");
-            foreach (var p in products)
-            {
-                Console.WriteLine($"{p.Name} - Remaining: {p.RemainingStock}");
-            }
+            Console.WriteLine($"{"Final Total:",-30} PHP {finalTotal}");
+            Console.WriteLine("===========================================");
 
             Console.WriteLine("\nThank you for shopping at Ralph's Grocery Store!");
         }

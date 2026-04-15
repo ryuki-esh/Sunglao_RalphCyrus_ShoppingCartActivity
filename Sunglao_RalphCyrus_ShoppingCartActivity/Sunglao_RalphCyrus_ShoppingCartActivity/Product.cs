@@ -21,7 +21,7 @@ namespace Shopping_Cart_Activity_Sunglao
 
         public void DisplayProduct()
         {
-            Console.WriteLine($"{Id,-5} {Name,-15} ₱{Price,-10} {RemainingStock,-5}");
+            Console.WriteLine($"{Id,-5} {Name,-15} PHP {Price,-10} {RemainingStock,-5}");
         }
 
         public double GetItemTotal(int quantity)
