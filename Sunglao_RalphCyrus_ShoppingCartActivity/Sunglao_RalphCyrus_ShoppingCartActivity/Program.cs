@@ -92,7 +92,17 @@ namespace Shopping_Cart_Activity_Sunglao
 
             Console.WriteLine($"Grand Total: ₱{grandTotal}");
 
-  
+            double discount = 0;
+            if (grandTotal >= 5000)
+            {
+                discount = grandTotal * 0.10;
+                Console.WriteLine($"Discount (10%): ₱{discount}");
+            }
+
+            double finalTotal = grandTotal - discount;
+            Console.WriteLine($"Final Total: ₱{finalTotal}");
+
+
             Console.WriteLine("\n===== UPDATED STOCK =====");
             foreach (var p in products)
             {
