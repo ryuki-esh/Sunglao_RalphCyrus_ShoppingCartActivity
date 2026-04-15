@@ -19,12 +19,12 @@ namespace Shopping_Cart_Activity_Sunglao
                 RemainingStock = stock;
             }
 
-            public void DisplayProduct()
-            {
-                Console.WriteLine($"{Id}. {Name} - ₱{Price} (Stock: {RemainingStock})");
-            }
+        public void DisplayProduct()
+        {
+            Console.WriteLine($"{Id,-5} {Name,-15} ₱{Price,-10} {RemainingStock,-5}");
+        }
 
-            public double GetItemTotal(int quantity)
+        public double GetItemTotal(int quantity)
             {
                 return Price * quantity;
             }

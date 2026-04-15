@@ -26,10 +26,18 @@ namespace Shopping_Cart_Activity_Sunglao
             {
                 Console.WriteLine("========WELCOME TO RALPH'S GROCERY STORE========");
 
+                Console.WriteLine("\n===========================================");
+                Console.WriteLine("               PRODUCT MENU               ");
+                Console.WriteLine("===========================================");
+                Console.WriteLine($"{"ID",-5} {"Product",-15} {"Price",-10} {"Stock",-5}");
+                Console.WriteLine("-------------------------------------------");
+
                 foreach (var p in products)
                 {
                     p.DisplayProduct();
                 }
+
+                Console.WriteLine("===========================================");
 
                 Console.Write("Enter Product Number: ");
                 string inputProduct = Console.ReadLine();
