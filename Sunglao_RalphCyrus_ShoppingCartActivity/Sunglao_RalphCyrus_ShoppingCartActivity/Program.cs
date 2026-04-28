@@ -22,8 +22,7 @@ namespace Shopping_Cart_Activity_Sunglao
                 new Product(10, "Cheetos", 90.00, 100),
             };
 
-            ItemCart[] cart = new ItemCart[5];
-            int cartCount = 0;
+            List<ItemCart> cart = new List<ItemCart>();
 
             bool continueShopping = true;
 
@@ -80,9 +79,8 @@ namespace Shopping_Cart_Activity_Sunglao
               
                 selectedProduct.DeductStock(quantity);
 
-              
-                cart[cartCount] = new ItemCart(selectedProduct, quantity);
-                cartCount++;
+
+                cart.Add(new ItemCart(selectedProduct, quantity));
 
                 Console.WriteLine("Item added to cart!");
 
@@ -102,7 +100,7 @@ namespace Shopping_Cart_Activity_Sunglao
 
             double grandTotal = 0;
 
-            for (int i = 0; i < cartCount; i++)
+            for (int i = 0; i < cart.Count; i++)
             {
                 Console.WriteLine(
                     $"{cart[i].Product.Name,-15} " +
