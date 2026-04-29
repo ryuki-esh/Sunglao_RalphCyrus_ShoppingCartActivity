@@ -121,13 +121,28 @@ namespace Shopping_Cart_Activity_Sunglao
                 discount = grandTotal * 0.10;
             }
 
-            Console.WriteLine($"{"Discount (10%):",-30} PHP {discount}");
+            if (discount > 0)
+            {
+                Console.WriteLine($"{"Discount (10%):",-30} PHP {discount}");
+            }
 
             double finalTotal = grandTotal - discount;
             Console.WriteLine($"{"Final Total:",-30} PHP {finalTotal}");
             Console.WriteLine("===========================================");
 
             Console.WriteLine("\nThank you for shopping at Ralph's Grocery Store!");
+
+            Console.WriteLine("\n===========================================");
+            Console.WriteLine("         UPDATED STOCK AFTER PURCHASE      ");
+            Console.WriteLine("===========================================");
+            Console.WriteLine($"{"ID",-5} {"Product",-15} {"Price",-10} {"Stock",-5}");
+            Console.WriteLine("-------------------------------------------");
+
+            foreach (var p in products)
+            {
+                p.DisplayProduct();
+            }
+        }
         }
     }
 }
