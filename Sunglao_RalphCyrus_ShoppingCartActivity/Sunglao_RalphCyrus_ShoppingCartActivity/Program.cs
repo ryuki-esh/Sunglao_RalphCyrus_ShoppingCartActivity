@@ -8,7 +8,6 @@ namespace Shopping_Cart_Activity_Sunglao
         static int receiptCounter = 1;
         static void Main()
         {
-            List<Order> orderHistory = new List<Order>();
             Product[] products = new Product[]
             {
                 new Product(1, "Milk", 50.00, 50, "Food"),
@@ -27,11 +26,15 @@ namespace Shopping_Cart_Activity_Sunglao
             };
 
             List<ItemCart> cart = new List<ItemCart>();
+            List<Order> orderHistory = new List<Order>();
 
             bool running = true;
 
             while (running)
             {
+                Console.WriteLine("===========================================");
+                Console.WriteLine("       WELCOME TO RALPH'S GROCERY STORE         ");
+                Console.WriteLine("===========================================");
                 Console.WriteLine("\n====== MAIN MENU ======");
                 Console.WriteLine("1. Add Item");
                 Console.WriteLine("2. Manage Cart");
@@ -54,7 +57,7 @@ namespace Shopping_Cart_Activity_Sunglao
                         break;
 
                     case "3":
-                        SearchProduct(products);
+                        SearchProduct(products, cart);
                         break;
 
                     case "4":
@@ -208,11 +211,32 @@ namespace Shopping_Cart_Activity_Sunglao
                 return;
             }
 
-            Console.WriteLine("\n--- CART ITEMS ---");
+            Console.WriteLine("\n===========================================");
+            Console.WriteLine("                CART ITEMS                ");
+            Console.WriteLine("===========================================");
+            Console.WriteLine($"{"No.",-5} {"Product",-15} {"Qty",-5} {"Price",-10} {"Subtotal",-10}");
+            Console.WriteLine("-----------------------------------------------------------");
+
+            double total = 0;
+
             for (int i = 0; i < cart.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {cart[i].Product.Name} - Qty: {cart[i].Quantity}");
+                var item = cart[i];
+
+                Console.WriteLine(
+                    $"{i + 1,-5} " +
+                    $"{item.Product.Name,-15} " +
+                    $"{item.Quantity,-5} " +
+                    $"PHP {item.Product.Price,-9:F2} " +
+                    $"PHP {item.Subtotal,-10:F2}"
+                );
+
+                total += item.Subtotal;
             }
+
+            Console.WriteLine("-----------------------------------------------------------");
+            Console.WriteLine($"{"Total:",-40} PHP {total:F2}");
+            Console.WriteLine("===========================================");
         }
 
         // ================= REMOVE ITEM =================
@@ -232,31 +256,90 @@ namespace Shopping_Cart_Activity_Sunglao
         }
 
         //================== SEARCH PRODUCT =================
-        static void SearchProduct(Product[] products)
+        static void SearchProduct(Product[] products, List<ItemCart> cart)
         {
             Console.Write("\nEnter product name to search: ");
             string search = Console.ReadLine().ToLower();
 
-            bool found = false;
+            List<Product> results = new List<Product>();
 
             Console.WriteLine("\nSearch Results:");
+            Console.WriteLine("-------------------------------------------");
+            Console.WriteLine($"{"ID",-5} {"Product",-15} {"Price",-10} {"Stock",-5}");
             Console.WriteLine("-------------------------------------------");
 
             foreach (var p in products)
             {
                 if (p.Name.ToLower().Contains(search))
                 {
-                    Console.WriteLine($"\n{"ID",-5} {"Product",-15} {"Price",-10} {"Stock",-5}");
-                    Console.WriteLine("-------------------------------------------");
-                    p.DisplayProduct(
-                    );
-                    found = true;
+                    p.DisplayProduct();
+                    results.Add(p);
                 }
             }
 
-            if (!found)
+            if (results.Count == 0)
             {
                 Console.WriteLine("No matching products found.");
+                return;
+            }
+
+            while (true)
+            {
+                Console.Write("\nEnter Product ID to add (0 to cancel): ");
+
+                if (!int.TryParse(Console.ReadLine(), out int id) || id < 0)
+                {
+                    Console.WriteLine("Invalid input.");
+                    continue;
+                }
+
+                if (id == 0)
+                    break;
+
+                Product selectedProduct = null;
+
+                foreach (var p in results)
+                {
+                    if (p.Id == id)
+                    {
+                        selectedProduct = p;
+                        break;
+                    }
+                }
+
+                if (selectedProduct == null)
+                {
+                    Console.WriteLine("Invalid product selection.");
+                    continue;
+                }
+
+                if (selectedProduct.RemainingStock == 0)
+                {
+                    Console.WriteLine("This product is out of stock.");
+                    continue;
+                }
+
+                Console.Write("Enter Quantity: ");
+                if (!int.TryParse(Console.ReadLine(), out int qty) || qty <= 0)
+                {
+                    Console.WriteLine("Invalid quantity.");
+                    continue;
+                }
+
+                if (qty > selectedProduct.RemainingStock)
+                {
+                    Console.WriteLine("Not enough stock.");
+                    continue;
+                }
+
+                selectedProduct.DeductStock(qty);
+                cart.Add(new ItemCart(selectedProduct, qty));
+
+                Console.WriteLine("Item added to cart!");
+
+                string answer = GetYesNoInput("\nAdd another searched item? (Y/N): ");
+                if (answer == "n")
+                    break;
             }
         }
 
