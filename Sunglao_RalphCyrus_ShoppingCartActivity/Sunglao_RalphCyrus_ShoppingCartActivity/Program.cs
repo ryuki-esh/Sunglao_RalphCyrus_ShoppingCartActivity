@@ -151,7 +151,7 @@ namespace Shopping_Cart_Activity_Sunglao
                 }
 
                 selectedProduct.DeductStock(quantity);
-                cart.Add(new ItemCart(selectedProduct, quantity));
+                AddToCart(cart, selectedProduct, quantity);
 
                 Console.WriteLine("Item added to cart!");
 
@@ -333,7 +333,7 @@ namespace Shopping_Cart_Activity_Sunglao
                 }
 
                 selectedProduct.DeductStock(qty);
-                cart.Add(new ItemCart(selectedProduct, qty));
+                AddToCart(cart, selectedProduct, qty);
 
                 Console.WriteLine("Item added to cart!");
 
@@ -341,6 +341,20 @@ namespace Shopping_Cart_Activity_Sunglao
                 if (answer == "n")
                     break;
             }
+        }
+
+        static void AddToCart(List<ItemCart> cart, Product product, int quantity)
+        {
+            foreach (var item in cart)
+            {
+                if (item.Product.Id == product.Id)
+                {
+                    item.Quantity += quantity;
+                    return;
+                }
+            }
+
+            cart.Add(new ItemCart(product, quantity));
         }
 
         // ================= FILTER BY CATEGORY =================
@@ -443,7 +457,7 @@ namespace Shopping_Cart_Activity_Sunglao
                     }
 
                     selectedProduct.DeductStock(qty);
-                    cart.Add(new ItemCart(selectedProduct, qty));
+                    AddToCart(cart, selectedProduct, qty);
 
                     Console.WriteLine("Item added to cart!");
 
