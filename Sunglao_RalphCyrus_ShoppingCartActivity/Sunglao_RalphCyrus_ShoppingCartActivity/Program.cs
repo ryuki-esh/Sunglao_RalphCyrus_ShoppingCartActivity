@@ -154,6 +154,7 @@ namespace Shopping_Cart_Activity_Sunglao
                 AddToCart(cart, selectedProduct, quantity);
 
                 Console.WriteLine("Item added to cart!");
+                Console.WriteLine($"Current Cart Total: PHP {GetCartTotal(cart):F2}");
 
 
                 string answer = GetYesNoInput("\nDo you want to add another item? (Y/N): ");
@@ -336,6 +337,7 @@ namespace Shopping_Cart_Activity_Sunglao
                 AddToCart(cart, selectedProduct, qty);
 
                 Console.WriteLine("Item added to cart!");
+                Console.WriteLine($"Current Cart Total: PHP {GetCartTotal(cart):F2}");
 
                 string answer = GetYesNoInput("\nAdd another searched item? (Y/N): ");
                 if (answer == "n")
@@ -355,6 +357,19 @@ namespace Shopping_Cart_Activity_Sunglao
             }
 
             cart.Add(new ItemCart(product, quantity));
+        }
+
+        // ================= GET CART TOTAL =================
+        static double GetCartTotal(List<ItemCart> cart)
+        {
+            double total = 0;
+
+            foreach (var item in cart)
+            {
+                total += item.Subtotal;
+            }
+
+            return total;
         }
 
         // ================= FILTER BY CATEGORY =================
@@ -460,6 +475,7 @@ namespace Shopping_Cart_Activity_Sunglao
                     AddToCart(cart, selectedProduct, qty);
 
                     Console.WriteLine("Item added to cart!");
+                    Console.WriteLine($"Current Cart Total: PHP {GetCartTotal(cart):F2}");
 
                     string answer = GetYesNoInput("\nAdd another item from this category? (Y/N): ");
 
