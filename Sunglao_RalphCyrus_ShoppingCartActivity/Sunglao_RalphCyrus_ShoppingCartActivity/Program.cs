@@ -542,9 +542,16 @@ namespace Shopping_Cart_Activity_Sunglao
 
             while (true)
             {
-                Console.Write("\nEnter payment: PHP ");
+                Console.Write("\nEnter payment (or type 0 to cancel): PHP ");
+                string input = Console.ReadLine();
 
-                if (!double.TryParse(Console.ReadLine(), out payment))
+                if (input == "0")
+                {
+                    Console.WriteLine("Payment cancelled. Returning to main menu...");
+                    return; 
+                }
+
+                if (!double.TryParse(input, out payment))
                 {
                     Console.WriteLine("Invalid input. Please enter a numeric value.");
                     continue;
@@ -566,6 +573,7 @@ namespace Shopping_Cart_Activity_Sunglao
             Console.WriteLine("===========================================");
 
             Console.WriteLine("\nThank you for shopping at Ralph's Grocery Store!");
+            cart.Clear();
 
             // UPDATED STOCK 
             Console.WriteLine("\n===========================================");
